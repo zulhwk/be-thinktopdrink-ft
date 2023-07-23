@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #laporan {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #laporan td, #laporan th {
+            padding: 8px;
+        }
+
+        #laporan tr:hover {background-color: #ddd;}
+
+        #laporan th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #00479B;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+  <div style="padding-top: 10px" class="page">
+    <div>
+      <div style="text-align: center;">
+          <div style="font-size: 25px; font-weight: 600;">Thinktop Drink</div>
+          <div style="font-size: 25px; font-weight: 600;">Laporan Laba Rugi</div>
+          <div style="font-size: 20px; font-weight: 500; margin-top: 5px;">Periode : <%= periode %></div>
+      </div>
+      <div style="margin-top: 20px;">
+          <table id="laporan" style="width: 100%">
+              <tbody>
+                <tr>
+                  <th colspan="4">Pendapatan</th>
+                </tr>
+                <% for(var i=0; i < data.revenue.data.length; i++) {%>
+                  <tr>
+                    <td style="width: 2%" />
+                    <td style="width: 10%"><%= data.revenue.data[i].kode_akun %></td>
+                    <td><%= data.revenue.data[i].nama_akun %></td>
+                    <td style="text-align: right;">Rp. <%= helper.convertPrice(data.revenue.data[i].saldo) %></td>
+                  </tr>
+                <% } %>
+                <tr style="background-color: #f2f2f2;">
+                  <td colspan="3">Total dari Pendapatan</td>
+                  <td style="text-align: right;">Rp. <%= helper.convertPrice(data.revenue.total) %></td>
+                </tr>
+                <tr>
+                  <th colspan="4">Biaya Penjualan</th>
+                </tr>
+                <% for(var i=0; i < data.cos.data.length; i++) {%>
+                  <tr>
+                    <td style="width: 2%" />
+                    <td style="width: 10%"><%= data.cos.data[i].kode_akun %></td>
+                    <td><%= data.cos.data[i].nama_akun %></td>
+                    <td style="text-align: right;">Rp. <%= helper.convertPrice(data.cos.data[i].saldo) %></td>
+                  </tr>
+                <% } %>
+                <tr style="background-color: #f2f2f2;">
+                  <td colspan="3">Total dari Biaya Penjualan</td>
+                  <td style="text-align: right;">Rp. <%= helper.convertPrice(data.cos.total) %></td>
+                </tr>
+                <tr style="background-color: #f2f2f2;">
+                  <td colspan="3">Laba kotor</td>
+                  <td style="text-align: right;">Rp. <%= helper.convertPrice(data.revenue.total + data.cos.total) %></td>
+                </tr>
+                <tr>
+                  <th colspan="4">Beban Operasional</th>
+                </tr>
+                <% for(var i=0; i < data.expense.data.length; i++) {%>
+                  <tr>
+                    <td style="width: 2%" />
+                    <td style="width: 10%"><%= data.expense.data[i].kode_akun %></td>
+                    <td><%= data.expense.data[i].nama_akun %></td>
+                    <td style="text-align: right;">Rp. <%= helper.convertPrice(data.expense.data[i].saldo) %></td>
+                  </tr>
+                <% } %>
+                <tr style="background-color: #f2f2f2;">
+                  <td colspan="3">Total dari Beban Operasional</td>
+                  <td style="text-align: right;">Rp. <%= helper.convertPrice(data.expense.total) %></td>
+                </tr>
+                <tr style="background-color: #f2f2f2;">
+                  <td colspan="3">Laba</td>
+                  <td style="text-align: right;">Rp. <%= helper.convertPrice((data.revenue.total - data.cos.total) - data.expense.total) %></td>
+                </tr>
+              </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
